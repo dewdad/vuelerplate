@@ -5,12 +5,14 @@
       </ul>
       <div>
           <input type="text" v-model="inputTitle">
-          <button @click="addItem">追加</button>
+          <button @click="ADD_TASK(inputTitle)">追加</button>
       </div>
   </div>
 </template>
-
-<script>
+ 
+<script lang='ts'>
+import { mapState,mapActions } from 'vuex'
+import * as types from './store/mutation-types.ts';
 import Item from './Item.vue'
  
 export default {
@@ -20,9 +22,16 @@ export default {
     },
     data () {
         return {
-            items: this.$store.state.items,
             inputTitle: ""
         }
+    },
+    computed: {
+        ...mapState(['items'])
+    },
+    methods: {
+        ...mapActions([
+            types.ADD_TASK
+        ]),
     }
 }
 </script>

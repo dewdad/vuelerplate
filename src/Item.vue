@@ -1,23 +1,17 @@
 <template>
-    <li v-bind:class="{ 'is-do': item.is_do }" @click="done(item)">{{ item.title }}</li>
+    <li v-bind:class="{ 'is-do': item.is_do }" @click="DONE_TASK(item)">{{ item.title }}</li>
 </template>
-
-<script>
+ 
+<script lang='ts'>
+import { mapActions } from 'vuex'
+import * as types from './store/mutation-types.ts';
+ 
 export default {
     props: ['item'],
     methods: {
-        done(item) {
-            item.is_do = !item.is_do;
-        }
+        ...mapActions([
+            types.DONE_TASK
+        ])
     }
 }
 </script>
-
-<style scoped>
-li {
-    cursor: pointer;
-}
-li.is-do {
-    text-decoration: line-through;
-}
-</style>
